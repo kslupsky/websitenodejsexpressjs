@@ -2,9 +2,11 @@ const express = require('express');
 const createError = require('http-errors');
 const path = require('path');
 const configs = require('./config');
+const SpeakerService = require('./services/SpeakerService');
 
 const app = express();
 const config = configs[app.get('env')];
+const speakerService = new SpeakerService(config.data.speakers);
 
 app.set('view engine', 'pug');
 if(app.get('env') === 'development') app.locals.pretty = true;
@@ -20,6 +22,17 @@ app.locals.title = config.sitename;
 //     res.locals.rendertime = new Date();
 //     return next();
 // });
+
+app.use(async (req, res, next) => {
+    try {
+        const names = await speakerService.getNames();
+        console.log(names);
+        res.locals.speakerNames = names;
+        return next();
+    } catch(err) {
+        return next(err);
+    }
+})
 
 const routes = require('./routes');
 app.use('/', routes());
