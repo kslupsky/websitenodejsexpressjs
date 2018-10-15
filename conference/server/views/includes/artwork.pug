@@ -1,21 +1,7 @@
-h1.sidebar-title Artwork on display
-p.sidebar-body
-    | While you attend the conference, head over to our gallery where you can check out some of the work from our speakers.
-.pixgrid.clearfix
-    img(alt='Artwork 0', src='/images/artwork/Lorenzo_Garcia_01_tn.jpg')
-    img(alt='Artwork 1', src='/images/artwork/Lorenzo_Garcia_02_tn.jpg')
-    img(alt='Artwork 2', src='/images/artwork/Lorenzo_Garcia_03_tn.jpg')
-    img(alt='Artwork 3', src='/images/artwork/Lorenzo_Garcia_04_tn.jpg')
-    img(alt='Artwork 4', src='/images/artwork/Hillary_Goldwynn_01_tn.jpg')
-    img(alt='Artwork 5', src='/images/artwork/Hillary_Goldwynn_02_tn.jpg')
-    img(alt='Artwork 6', src='/images/artwork/Hillary_Goldwynn_03_tn.jpg')
-    img(alt='Artwork 7', src='/images/artwork/Hillary_Goldwynn_04_tn.jpg')
-    img(alt='Artwork 8', src='/images/artwork/Hillary_Goldwynn_05_tn.jpg')
-    img(alt='Artwork 9', src='/images/artwork/Hillary_Goldwynn_06_tn.jpg')
-    img(alt='Artwork 10', src='/images/artwork/Hillary_Goldwynn_07_tn.jpg')
-    img(alt='Artwork 11', src='/images/artwork/Riley_Rewington_01_tn.jpg')
-    img(alt='Artwork 12', src='/images/artwork/Riley_Rewington_02_tn.jpg')
-    img(alt='Artwork 13', src='/images/artwork/Riley_Rewington_03_tn.jpg')
-    img(alt='Artwork 14', src='/images/artwork/Riley_Rewington_04_tn.jpg')
-    img(alt='Artwork 15', src='/images/artwork/Riley_Rewington_05_tn.jpg')
-    img(alt='Artwork 16', src='/images/artwork/Riley_Rewington_06_tn.jpg')
+if artwork && artwork.length
+    h1.sidebar-title Artwork on display
+    p.sidebar-body
+        | While you attend the conference, head over to our gallery where you can check out some of the work from our speakers.
+    .pixgrid.clearfix
+        each thumb, index in artwork
+            img(alt=`Artwork ${index}`, src=`/images/artwork/${thumb}`)
