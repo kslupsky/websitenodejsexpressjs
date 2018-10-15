@@ -3,10 +3,12 @@ const createError = require('http-errors');
 const path = require('path');
 const configs = require('./config');
 const SpeakerService = require('./services/SpeakerService');
+const FeedbackService = require('./services/FeedbackService');
 
 const app = express();
 const config = configs[app.get('env')];
 const speakerService = new SpeakerService(config.data.speakers);
+const feedbackService = new FeedbackService(config.data.feedback);
 
 app.set('view engine', 'pug');
 if(app.get('env') === 'development') app.locals.pretty = true;
@@ -34,7 +36,10 @@ app.use(async (req, res, next) => {
 })
 
 const routes = require('./routes');
-app.use('/', routes({speakerService}));
+app.use('/', routes({
+    speakerService,
+    feedbackService
+}));
 
 app.use((req, res, next) => {
     return next(createError(404, 'File not found'));
