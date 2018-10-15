@@ -26,7 +26,6 @@ app.locals.title = config.sitename;
 app.use(async (req, res, next) => {
     try {
         const names = await speakerService.getNames();
-        console.log(names);
         res.locals.speakerNames = names;
         return next();
     } catch(err) {
@@ -35,7 +34,7 @@ app.use(async (req, res, next) => {
 })
 
 const routes = require('./routes');
-app.use('/', routes());
+app.use('/', routes({speakerService}));
 
 app.use((req, res, next) => {
     return next(createError(404, 'File not found'));

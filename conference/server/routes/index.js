@@ -4,13 +4,16 @@ const router = express.Router();
 const speakers = require('./speakers');
 const feedback = require('./feedback');
 
-module.exports = () => {
-    router.get('/', (req, res, next) => {
+module.exports = (param) => {
+    const { speakerService } = param;
+    router.get('/', async (req, res, next) => {
+        const speakersList = await speakerService.getListShort();
         return res.render('index', {
-            page: 'Home'
+            page: 'Home',
+            speakersList
         });
     });
-    router.use('/speakers', speakers());
-    router.use('/feedback', feedback());
+    router.use('/speakers', speakers(param));
+    router.use('/feedback', feedback(param));
     return router;
 };
