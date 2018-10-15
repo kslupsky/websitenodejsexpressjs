@@ -1,6 +1,9 @@
 const express = require('express');
 const createError = require('http-errors');
 const path = require('path');
+const bodyParser = require('body-parser');
+
+const routes = require('./routes');
 const configs = require('./config');
 const SpeakerService = require('./services/SpeakerService');
 const FeedbackService = require('./services/FeedbackService');
@@ -15,6 +18,7 @@ if(app.get('env') === 'development') app.locals.pretty = true;
 app.set('views', path.join(__dirname, './views'));
 
 app.use(express.static('public'));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.get('/favicon.ico', (req, res, next) => {
     return res.sendStatus(204);
 });
@@ -35,7 +39,6 @@ app.use(async (req, res, next) => {
     }
 })
 
-const routes = require('./routes');
 app.use('/', routes({
     speakerService,
     feedbackService
